@@ -6,7 +6,7 @@
 /*   By: xquah <xquah@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 20:38:12 by xquah             #+#    #+#             */
-/*   Updated: 2024/11/24 12:26:50 by xquah            ###   ########.fr       */
+/*   Updated: 2024/11/28 18:06:45 by xquah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,14 @@ int	ft_atoi(const char *str)
 	return (num);
 }
 
-void	wait_for(int milli)
+int	ft_usleep(size_t milliseconds)
 {
-	usleep(milli * 1000);
+	size_t	start;
+
+	start = get_current_time();
+	while ((get_current_time() - start) < milliseconds)
+		usleep(500);
+	return (0);
 }
 
 size_t	get_current_time(void)
@@ -48,4 +53,15 @@ size_t	get_current_time(void)
 	if (gettimeofday(&time, NULL) == -1)
 		write(2, "gettimeofday() error\n", 22);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+void	say_messaage(char *str, t_philo *philo)
+{
+	size_t	time;
+
+	pthread_mutex_lock(philo->write_lock);
+	time = get_current_time() - philo->start_time;
+	if (!check_dead_loop(philo))
+		printf("%zu %d %s\n", time, philo->id, str);
+	pthread_mutex_unlock(philo->write_lock);
 }

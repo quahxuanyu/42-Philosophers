@@ -6,36 +6,37 @@
 /*   By: xquah <xquah@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:29:19 by xquah             #+#    #+#             */
-/*   Updated: 2024/11/24 14:15:09 by xquah            ###   ########.fr       */
+/*   Updated: 2024/11/28 18:04:19 by xquah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void	take_fork(pthread_mutex_t *fork)
+void	eat(t_philo *philo)
 {
-	pthread_mutex_lock(fork);
-
+	pthread_mutex_lock(philo->right_fork);
+	say_messaage("has taken a RIGHT fork", philo);
+	pthread_mutex_lock(philo->left_fork);
+	say_messaage("has taken a LEFT fork", philo);
+	philo->is_eating = 1;
+	say_messaage("is eating", philo);
+	pthread_mutex_lock(philo->meal_lock);
+	philo->num_ate += 1;
+	philo->time_last_ate = get_current_time();
+	ft_usleep(philo->time_to_eat);
+	pthread_mutex_unlock(philo->meal_lock);
+	philo->is_eating = 0;
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 }
 
-void	eat(t_philo philo)
+void	rest(t_philo *philo)
 {
-	pthread_mutex_lock(philo.right_fork);
-	printf("%i %i has taken a fork\n", get_current_time - philo.start_time, philo.id);
-	pthread_mutex_lock(philo.left_fork);
-	printf("%i %i has taken a fork\n", get_current_time - philo.start_time, philo.id);
-	printf("%i %i is eating\n", get_current_time - philo.start_time, philo.id);
-	wait_for(philo.time_to_eat);
-	pthread_mutex_unlock(philo.right_fork);
-	pthread_mutex_unlock(philo.left_fork);
+	say_messaage("is sleeping", philo);
+	ft_usleep(philo->time_to_sleep);
 }
 
-void	sleep()
+void	think(t_philo *philo)
 {
-
-}
-
-void	think()
-{
-	
+	say_messaage("is thinking", philo);
 }

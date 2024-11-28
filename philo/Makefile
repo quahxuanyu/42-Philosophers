@@ -3,7 +3,10 @@ SRCDIR = src/
 OBJDIR = objs/
 SRC_FILES = main.c \
 			initialize.c \
-			utils.c
+			utils.c \
+			execution.c \
+			routine.c \
+			observer.c
 
 SRCS = $(addprefix $(SRCDIR), $(SRC_FILES))
 OBJS = $(addprefix $(OBJDIR), $(notdir $(SRCS:.c=.o)))
@@ -11,7 +14,7 @@ OBJS = $(addprefix $(OBJDIR), $(notdir $(SRCS:.c=.o)))
 #FLAGS = -Wall -Wextra -Werror
 FLAGS =
 
-PHILO = philosophers
+PHILO = philo
 NAME = $(PHILO)
 
 # Rules

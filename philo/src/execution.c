@@ -6,7 +6,7 @@
 /*   By: xquah <xquah@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:34:06 by xquah             #+#    #+#             */
-/*   Updated: 2024/11/28 17:55:52 by xquah            ###   ########.fr       */
+/*   Updated: 2024/11/28 19:23:18 by xquah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	*routine(void *input)
 	t_philo	*philo;
 
 	philo = (t_philo *) input;
+	if (philo->id % 2 == 0)
+		ft_usleep(1);
 	while (!check_dead_loop(philo))
 	{
 		eat(philo);

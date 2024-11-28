@@ -6,7 +6,7 @@
 /*   By: xquah <xquah@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:14:50 by xquah             #+#    #+#             */
-/*   Updated: 2024/11/28 18:06:34 by xquah            ###   ########.fr       */
+/*   Updated: 2024/11/28 19:55:42 by xquah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ size_t	get_current_time(void);
 void	wait_for(int milli);
 
 //EXECUTION.C
-int	check_dead_loop(t_philo *philo);
+int	check_dead_loop(t_philo *philo);	
 
 // ROUTINE.C
 void	eat(t_philo *philo);

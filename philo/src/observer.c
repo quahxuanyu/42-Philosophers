@@ -6,7 +6,7 @@
 /*   By: xquah <xquah@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 00:11:08 by xquah             #+#    #+#             */
-/*   Updated: 2024/11/28 17:39:54 by xquah            ###   ########.fr       */
+/*   Updated: 2024/11/28 20:25:00 by xquah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,16 @@ int check_all_ate(t_philo *philos)
 	int i;
 	
 	if (philos[0].num_must_eat == -1)
+	{
 		return (0);
+	}
 	i = -1;
 	while (++i < philos[0].num_of_philo)
 	{
-		if (philos[i].num_ate != philos[i].num_must_eat)
+		if (philos[i].num_ate < philos[i].num_must_eat)
 			return (0);
 	}
+	*(philos[0].dead) = 1;
 	return (1);
 }
 

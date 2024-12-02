@@ -6,7 +6,7 @@
 /*   By: xquah <xquah@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:56:08 by xquah             #+#    #+#             */
-/*   Updated: 2024/11/28 12:30:40 by xquah            ###   ########.fr       */
+/*   Updated: 2024/11/30 17:11:36 by xquah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	initialize_input(int argc, char *argv[], t_philo philo[MAX_PHILO])
 		num_of_philo = ft_atoi(argv[1]);
 		while (num_of_philo--)
 		{
-			// printf("Philo %i: has this time to die %i\n", num_of_philo, ft_atoi(argv[2]));
 			philo[num_of_philo].num_of_philo = ft_atoi(argv[1]);
 			philo[num_of_philo].time_to_die = ft_atoi(argv[2]);
 			philo[num_of_philo].time_to_eat = ft_atoi(argv[3]);
@@ -34,11 +33,11 @@ void	initialize_input(int argc, char *argv[], t_philo philo[MAX_PHILO])
 	}
 }
 
-void	initialize_forks(pthread_mutex_t forks[MAX_PHILO])
+void	initialize_forks(pthread_mutex_t forks[MAX_PHILO], int num_of_philo)
 {
 	int	i;
 
-	i = MAX_PHILO;
+	i = num_of_philo;
 	while (i--)
 		pthread_mutex_init(&forks[i], NULL);
 }
@@ -49,6 +48,9 @@ void	initialize_philo(t_philo philos[MAX_PHILO],
 	int	i;
 
 	i = philos[0].num_of_philo;
+	pthread_mutex_init(&program->write_lock, NULL);
+	pthread_mutex_init(&program->dead_lock, NULL);
+	pthread_mutex_init(&program->meal_lock, NULL);
 	while (i--)
 	{
 		philos[i].id = i + 1;

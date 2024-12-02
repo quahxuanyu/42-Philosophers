@@ -6,7 +6,7 @@
 /*   By: xquah <xquah@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 20:38:12 by xquah             #+#    #+#             */
-/*   Updated: 2024/11/28 18:06:45 by xquah            ###   ########.fr       */
+/*   Updated: 2024/11/30 17:36:05 by xquah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,24 @@ void	say_messaage(char *str, t_philo *philo)
 	if (!check_dead_loop(philo))
 		printf("%zu %d %s\n", time, philo->id, str);
 	pthread_mutex_unlock(philo->write_lock);
+}
+
+void	destory_all(char *str, t_program *program, pthread_mutex_t *forks)
+{
+	int	i;
+
+	i = 0;
+	if (str)
+	{
+		printf("%s", str);
+		write(2, "\n", 1);
+	}
+	pthread_mutex_destroy(&program->write_lock);
+	pthread_mutex_destroy(&program->meal_lock);
+	pthread_mutex_destroy(&program->dead_lock);
+	while (i < program->philos[0].num_of_philo)
+	{
+		pthread_mutex_destroy(&forks[i]);
+		i++;
+	}
 }

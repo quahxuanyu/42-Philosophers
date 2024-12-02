@@ -6,16 +6,16 @@
 /*   By: xquah <xquah@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 00:11:08 by xquah             #+#    #+#             */
-/*   Updated: 2024/11/28 20:25:00 by xquah            ###   ########.fr       */
+/*   Updated: 2024/11/30 16:39:01 by xquah            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int check_all_ate(t_philo *philos)
+int	all_ate(t_philo *philos)
 {
-	int i;
-	
+	int	i;
+
 	if (philos[0].num_must_eat == -1)
 	{
 		return (0);
@@ -30,17 +30,17 @@ int check_all_ate(t_philo *philos)
 	return (1);
 }
 
-int philosopher_dead(t_philo *philo)
+int	philosopher_dead(t_philo *philo)
 {
 	pthread_mutex_lock(philo->meal_lock);
-	if (get_current_time() - philo->time_last_ate >= philo->time_to_die && philo->is_eating == 0)
+	if (get_current_time() - philo->time_last_ate >= philo->time_to_die
+		&& philo->is_eating == 0)
 		return (pthread_mutex_unlock(philo->meal_lock), 1);
 	pthread_mutex_unlock(philo->meal_lock);
 	return (0);
 }
 
-
-int check_dead_philo(t_philo *philos)
+int	check_dead_philo(t_philo *philos)
 {
 	int	i;
 
@@ -61,10 +61,10 @@ int check_dead_philo(t_philo *philos)
 
 void	*monitor_routine(void *input)
 {
-	t_program *program;
+	t_program	*program;
 
 	program = (t_program *) input;
-	while (!check_all_ate(program->philos) && !check_dead_philo(program->philos))
-		continue ;	
+	while (!all_ate(program->philos) && !check_dead_philo(program->philos))
+		continue ;
 	return (NULL);
 }
